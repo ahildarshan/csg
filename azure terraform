@@ -1,0 +1,30 @@
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "3.36.0"
+    }
+  }
+}
+
+provider "azurerm" {
+  subscription_id = "6654712a-739e-4d3b-a42c-2e8a960fcb99"
+  tenant_id       = "a9c50c6c-2ecc-4653-99b2-58024af91866"
+  client_id       = "9ee98484-c9c7-4cb5-a60a-435848117587"
+  client_secret   = "oEX8Q~UzlRwhND-oHm49-XQUh427_oodRYVhidt-"
+  features {}
+}
+
+resource "azurerm_resource_group" "rsg" {
+  name     = "practice"
+  location = "EAST US"
+}
+
+resource "azurerm_storage_account" "storage" {
+  name                     = "ahil0532"
+  resource_group_name      = "practice"
+  location                 = "EAST US"
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+
+}
