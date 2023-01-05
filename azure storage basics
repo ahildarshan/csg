@@ -1,0 +1,41 @@
+azure storage service and account
+	it provides 1.scalabilty 
+		    2.durability
+		    3.high availabilty 
+      	you can store both unstructured and partically structured data
+	you can create upto 100 storage account per single subscrition
+	each account can contain upto 500tb of combained blob, queae, table and file type of data
+	
+
+it has two type of storage account
+	1.standard storage-hdd(blob,table,queue and file storage)
+	2.premium storage-ssd(azure virtual disk)vm
+
+it will provide four type of storages :
+	blob(it will store any kind of data) reffered block storage
+	table storage(u can store the tables)
+	queue storage()
+	file storage()
+
+account kind 
+	hot (more frequent access)
+	cold (less frequent access)
+
+reduntant
+	
+
+
+
+
+
+
+blob storage:
+
+	it is also reffered as a object storage
+	it will store all kind of data like text and binary data
+	every blob is organized into the container
+	500tb capacity limit of storage data combie of all (blob,queue,table,file)
+	it doesn't have hierarchies
+	if u want > /jan/akm.txt , /jan/hod.txt  (u can filter in this way)
+
+ types of blob storage :
