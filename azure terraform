@@ -28,3 +28,76 @@ resource "azurerm_storage_account" "storage" {
   account_replication_type = "LRS"
 
 }
+
+
+data "azurerm_policy_definition" "allowedresourcetypes" {
+  display_name = "Allowed resource types"
+}
+
+resource "azurerm_resource_group_policy_assignment" "assignpolicy" {
+  name                 = "Assign-Policy"
+  resource_group_id    = azurerm_resource_group.appgrp.id
+  policy_definition_id = data.azurerm_policy_definition.allowedresourcetypes.id
+
+  parameters = <<PARAMS
+    {
+      "listOfResourceTypesAllowed": {
+        "value": ["microsoft.compute/virtualmachines"]
+      }
+    }
+PARAMS
+
+depends_on = [
+  azurerm_resource_group.appgrp
+]
+}
+
+**********************************************************************
+
+resource "azurerm_policy_definition" "example" {
+  name         = "only-deploy-in-westeurope"
+  policy_type  = "Custom"
+  mode         = "All"
+  display_name = "my-policy-definition"
+
+  policy_rule = <<POLICY_RULE
+ {
+    "if": {
+      "not": {
+        "field": "location",
+        "equals": "westeurope"
+      }
+    },
+    "then": {
+      "effect": "Deny"
+    }
+  }
+POLICY_RULE
+}
+
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+
+
+data "azurerm_policy_definition" "ahildef" {
+  display_name = "Allowed resource types"
+}
+
+resource "azurerm_resource_group_policy_assignment" "ahilrg-policy" {
+  name                 = "ahilrg-policy"
+  resource_group_id    = azurerm_resource_group.new-rg.id
+  policy_definition_id = data.azurerm_policy_definition.ahildef.id
+
+  parameters = <<PARAMS
+    {
+      "listOfResourceTypesAllowed": {
+        "value": ["microsoft.compute/virtualmachines"]
+      }
+    }
+PARAMS
+
+  depends_on = [
+    azurerm_resource_group.new-rg
+  ]
+}
